@@ -1,8 +1,8 @@
 # Simple Enterprise Application 
 
-> This branch hosts the vanilla implementation in plain go.
+> This branch hosts the GIN GONIC implementation.
 >
-> No framework is used and all the routing and error handling is implemented manually.
+> GIN is used to do all the routing and error handling.
 
 It provides some REST CRUD services to get, store, update and delete a simple entity
 
