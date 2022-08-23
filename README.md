@@ -1,5 +1,9 @@
 # Simple Enterprise Application 
 
+> This branch hosts the vanilla implementation in plain go.
+>
+> No framework is used and all the routing and error handling is implemented manually.
+
 It provides some REST CRUD services to get, store, update and delete a simple entity
 
 ## Run it
