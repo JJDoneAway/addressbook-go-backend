@@ -2,6 +2,13 @@
 
 It provides some REST CRUD services to get, store, update and delete a simple entity
 
+> 
+> I used branches to try out different implementation stiles. 
+>
+> so please check the branches
+>
+
+
 ## Run it
 Just run 
 ```
