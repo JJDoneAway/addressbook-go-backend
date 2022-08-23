@@ -47,6 +47,7 @@ func init() {
 		panic("sonyflake not created")
 	}
 
+	fmt.Println("Inserting some samples...")
 	for i := 0; i < 10; i++ {
 		(&User{FirstName: fmt.Sprintf("Hans_%d", i), LastName: fmt.Sprintf("Kies_%d", i)}).InsertUser()
 	}
