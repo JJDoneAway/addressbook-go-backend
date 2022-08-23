@@ -3,7 +3,7 @@
 It provides some REST CRUD services to get, store, update and delete a simple entity
 
 > 
-> I used branches to try out different implementation stiles. 
+> I used branches to try out different implementation styles. 
 >
 > so please check the branches
 >
