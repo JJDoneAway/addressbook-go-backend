@@ -5,7 +5,14 @@ It provides some REST CRUD services to get, store, update and delete a simple en
 ## Run it
 Just run 
 ```
+git clone https://github.com/JJDoneAway/addressbook.git
+cd addressbook
 go run github.com/JJDoneAway/addressbook
+
+or
+
+go build github.com/JJDoneAway/addressbook
+./addressbook
 ````
 and open
 
