@@ -48,9 +48,16 @@ func init() {
 	}
 
 	fmt.Println("Inserting some samples...")
-	for i := 0; i < 10; i++ {
-		(&User{FirstName: fmt.Sprintf("Hans_%d", i), LastName: fmt.Sprintf("Kies_%d", i)}).InsertUser()
-	}
+	(&User{FirstName: "Hans", LastName: "Kies"}).InsertUser()
+	(&User{FirstName: "Gertrud", LastName: "Kies"}).InsertUser()
+	(&User{FirstName: "Karl Richard", LastName: "Höhne"}).InsertUser()
+	(&User{FirstName: "Karl Michael", LastName: "Höhne"}).InsertUser()
+	(&User{FirstName: "Ingrid", LastName: "Höhne"}).InsertUser()
+	(&User{FirstName: "Johannes", LastName: "Höhne"}).InsertUser()
+	(&User{FirstName: "Ben", LastName: "Höhne"}).InsertUser()
+	(&User{FirstName: "Bettina", LastName: "Karrakchou"}).InsertUser()
+	(&User{FirstName: "Abdelmonim", LastName: "Karrakchou"}).InsertUser()
+	(&User{FirstName: "Elke", LastName: "Karrakchou"}).InsertUser()
 
 }
 
