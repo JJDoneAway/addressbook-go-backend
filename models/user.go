@@ -9,9 +9,9 @@ import (
 )
 
 type User struct {
-	ID        uint64
-	FirstName string
-	LastName  string
+	ID        uint64 `json:"ID"`
+	FirstName string `json:"FirstName" binding:"required"`
+	LastName  string `json:"LastName" binding:"required"`
 }
 
 type Entity interface {
