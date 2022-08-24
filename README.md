@@ -14,13 +14,22 @@ Just run
 ```
 git clone https://github.com/JJDoneAway/addressbook.git
 cd addressbook
-go run github.com/JJDoneAway/addressbook
-
+```
+```
+git switch vanilla
+```
 or
-
+```
+git switch gin
+```
+go run github.com/JJDoneAway/addressbook
+```
+or
+```
 go build github.com/JJDoneAway/addressbook
 ./addressbook
-````
+```
+
 and open
 
 http://localhost:8080/users
