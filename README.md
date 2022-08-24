@@ -17,7 +17,7 @@ git clone https://github.com/JJDoneAway/addressbook.git
 cd addressbook
 ```
 
-### switch to the branch of your interest
+### Switch to the branch of your interest
 ```
 git switch vanilla
 ```
@@ -47,6 +47,9 @@ http://localhost:8080/users
 
 ## Test it
 ----------
+
+> The IDs of the users are generated and change from run to run. So please replaces them in your example
+
 
 ### Get all
 ```
