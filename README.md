@@ -129,7 +129,7 @@ nothing to test here
 
 - [x] Implement all CRUDs in vanilla GO
 - [x] Implement all CRUDs in GIN
-- [ ] Add SWAGGER
+- [x] Add SWAGGER (it is a nightmare)
 - [ ] Add Examples out of file
 - [ ] Add OAuth
 - [ ] Add Real DB
