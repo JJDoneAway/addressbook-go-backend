@@ -64,7 +64,7 @@ curl -v "http://localhost:8080/users" | json_pp
 ### Get one
 #### positive
 ```
-curl -v "http://localhost:8080/users/17281579" | json_pp
+curl -v "http://localhost:8080/users/$myID" | json_pp
 ```
 #### negative
 ```
@@ -93,11 +93,11 @@ curl -v  -X POST "http://localhost:8080/users/1234" -d '{"FirstName":"Johannes",
 ### Put one
 #### positive
 ```
-curl -v -X PUT "http://localhost:8080/users/16888363" -d '{"ID": 16888363, "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
+curl -v -X PUT "http://localhost:8080/users/$myID" -d '{"ID": '${myID}', "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
 ```
 #### negative
 ```
-curl -v -X PUT "http://localhost:8080/users/16888363" -d '{"ID": 11111, "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
+curl -v -X PUT "http://localhost:8080/users/$myID" -d '{"ID": 11111, "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
 ```
 ```
 curl -v -X PUT "http://localhost:8080/users/666" -d '{"ID": 666, "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
@@ -106,7 +106,7 @@ curl -v -X PUT "http://localhost:8080/users/666" -d '{"ID": 666, "FirstName":"Jo
 ### Delete one
 #### positive
 ```
-curl -v -X DELETE "http://localhost:8080/users/16888363" | json_pp
+curl -v -X DELETE "http://localhost:8080/users/$myID" | json_pp
 ```
 #### negative
 ```
