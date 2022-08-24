@@ -10,32 +10,43 @@ It provides some REST CRUD services to get, store, update and delete a simple en
 
 
 ## Run it
-Just run 
+---------
+### Check out the project 
 ```
 git clone https://github.com/JJDoneAway/addressbook.git
 cd addressbook
 ```
+
+### switch to the branch of your interest
 ```
 git switch vanilla
 ```
+
 or
+
 ```
 git switch gin
 ```
+
+### Run the GO code
+```
 go run github.com/JJDoneAway/addressbook
 ```
+
 or
+
 ```
 go build github.com/JJDoneAway/addressbook
 ./addressbook
 ```
 
-and open
+### Open the application in your browser
 
 http://localhost:8080/users
 
-----
+
 ## Test it
+----------
 
 ### Get all
 ```
