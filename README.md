@@ -127,7 +127,8 @@ nothing to test here
 ---
 ## Next Steps
 
-- [x] Implement all CRUDs
+- [x] Implement all CRUDs in vanilla GO
+- [x] Implement all CRUDs in GIN
 - [ ] Add SWAGGER
 - [ ] Add Examples out of file
 - [ ] Add OAuth
