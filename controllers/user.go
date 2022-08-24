@@ -144,7 +144,7 @@ func (uc *userController) doPut(ID uint64, user *models.User, w http.ResponseWri
 	err := user.UpdateUser()
 	if err == models.ErrUnknownID {
 		w.WriteHeader(http.StatusBadRequest)
-		EncodeResponseAsJSON(fmt.Sprintf("The user with the id '%d' is unknown. Maybe you mend a POST call", user.ID), w)
+		EncodeResponseAsJSON(fmt.Sprintf("The user with the id '%d' is unknown. Maybe you mean a POST request", user.ID), w)
 		return
 	}
 
