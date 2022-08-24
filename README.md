@@ -7,3 +7,9 @@
 > For detailed description please see main branch
 
 
+# SWAGGER
+Follow the instructions of https://github.com/swaggo/gin-swagger
+
+Open http:localhost:8080
+
+It is so very inconvenient if you did it once in Spring :( 

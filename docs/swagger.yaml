@@ -1,0 +1,153 @@
+consumes:
+- application/json
+definitions:
+  models.User:
+    properties:
+      FirstName:
+        type: string
+      ID:
+        type: integer
+      LastName:
+        type: string
+    required:
+    - FirstName
+    - LastName
+    type: object
+info:
+  contact:
+    email: Johannes.Hoehne1@mail.schwarz
+    name: Johannes Höhne
+  description: This is a simple GO application with some basic REST CRUD operations.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: GO Example Addressbook
+  version: "1.0"
+paths:
+  /users:
+    delete:
+      description: Will delete all users. an empty list will be returned
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete all users
+      tags:
+      - users
+    get:
+      description: Provide a list of all currently known user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: List all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Will add a new user entity to the storage. The new created user
+        will be returned. Don't add the Id to the user parameter
+      parameters:
+      - description: The new User without ID
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: ID must be zero, Unparsable JSON body
+          schema:
+            type: string
+      summary: Add a new user
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      description: Delete a user with the provided ID
+      parameters:
+      - description: ID of the user
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Unknown ID
+          schema:
+            type: string
+      summary: Delete one user
+      tags:
+      - users
+    get:
+      description: Get a user with the provided ID
+      parameters:
+      - description: ID of the user
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Unknown ID
+          schema:
+            type: string
+      summary: Get one user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Will update an existing user which is identified via its ID
+      parameters:
+      - description: ID of the user
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: The new User without ID
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Unknown ID, ID miss match, Unparsable JSON body
+          schema:
+            type: string
+      summary: Update an existing user
+      tags:
+      - users
+produces:
+- application/json
+swagger: "2.0"
