@@ -48,7 +48,12 @@ http://localhost:8080/users
 ## Test it
 ----------
 
-> The IDs of the users are generated and change from run to run. So please replaces them in your example
+> The IDs of the users are generated and change from run to run. So we need to store one in an env and use it afterwards
+
+### Get one ID for your examples
+```
+myID=$(curl localhost:8080/users | jq '.[0]' | jq '.ID') 
+```
 
 
 ### Get all
