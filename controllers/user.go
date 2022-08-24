@@ -99,6 +99,15 @@ func (uc userController) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// @Summary      Add a new user
+// @Description  Will add a new user entity to the storage. The new created user will be returned. Don't add the Id to the user parameter
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user body models.User true "The new User without ID"
+// @Success      200
+// @Failure      400  {string}  string "ID must be zero, Unparsable JSON body"
+// @Router       /users [post]
 func (uc *userController) doPOST(w http.ResponseWriter, r *http.Request) {
 	user, err := uc.parseRequest(r)
 	if err != nil {
@@ -115,15 +124,35 @@ func (uc *userController) doPOST(w http.ResponseWriter, r *http.Request) {
 	EncodeResponseAsJSON(user, w)
 }
 
+// @Summary      List all users
+// @Description  Provide a list of all currently known user
+// @Tags         users
+// @Produce      json
+// @Success      200  {array}  models.User
+// @Router       /users [get]
 func (uc *userController) doGetAll(w http.ResponseWriter, r *http.Request) {
 	EncodeResponseAsJSON((&models.User{}).GetAllUsers(), w)
 }
 
+// @Summary      Delete all users
+// @Description  Will delete all users. an empty list will be returned
+// @Tags         users
+// @Produce      json
+// @Success      200
+// @Router       /users [delete]
 func (uc *userController) doDeleteAll(w http.ResponseWriter, r *http.Request) {
 	(&models.User{}).DeleteAllUsers()
 	EncodeResponseAsJSON((&models.User{}).GetAllUsers(), w)
 }
 
+// @Summary      Get one user
+// @Description  Get a user with the provided ID
+// @Tags         users
+// @Produce      json
+// @Param        id path integer true "ID of the user"
+// @Success      200  {object}  models.User
+// @Failure      400  {string}  string "Unknown ID"
+// @Router       /users/{id} [get]
 func (uc *userController) doGet(ID uint64, w http.ResponseWriter, r *http.Request) {
 	user, err := (&models.User{ID: ID}).GetUserByID()
 	if err != nil {
@@ -134,6 +163,16 @@ func (uc *userController) doGet(ID uint64, w http.ResponseWriter, r *http.Reques
 	EncodeResponseAsJSON(user, w)
 }
 
+// @Summary      Update an existing user
+// @Description  Will update an existing user which is identified via its ID
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        id path integer true "ID of the user"
+// @Param        user body models.User true "The new User without ID"
+// @Success      200  {object}  models.User
+// @Failure      400  {string}  string "Unknown ID, ID miss match, Unparsable JSON body"
+// @Router       /users/{id} [put]
 func (uc *userController) doPut(ID uint64, user *models.User, w http.ResponseWriter, r *http.Request) {
 	if ID != user.ID {
 		w.WriteHeader(http.StatusBadRequest)
@@ -152,6 +191,14 @@ func (uc *userController) doPut(ID uint64, user *models.User, w http.ResponseWri
 
 }
 
+// @Summary      Delete one user
+// @Description  Delete a user with the provided ID
+// @Tags         users
+// @Produce      json
+// @Param        id path integer true "ID of the user"
+// @Success      200  {string}  string
+// @Failure      400  {string}  string "Unknown ID"
+// @Router       /users/{id} [delete]
 func (uc *userController) doDelete(ID uint64, w http.ResponseWriter, r *http.Request) {
 	err := (&models.User{ID: ID}).DeleteUserByID()
 	if err == models.ErrUnknownID {

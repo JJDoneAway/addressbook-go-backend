@@ -6,4 +6,6 @@
 > 
 > For a detailed description please see main branch
 
+## Swagger
+open http://localhost:8080
 
