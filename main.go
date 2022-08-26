@@ -6,6 +6,7 @@ import (
 
 	"github.com/JJDoneAway/addressbook/controllers"
 	docs "github.com/JJDoneAway/addressbook/docs"
+	"github.com/JJDoneAway/addressbook/helper"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -25,6 +26,8 @@ import (
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 func main() {
 	router := gin.Default()
+
+	helper.AddDummies()
 
 	docs.SwaggerInfo.BasePath = "/"
 
