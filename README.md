@@ -118,7 +118,7 @@ curl -v -X DELETE "http://localhost:8080/users/666" | json_pp
 ```
 curl -v -X DELETE "http://localhost:8080/users/" | json_pp
 ```
-####
+#### negative
 nothing to test here
 
 
