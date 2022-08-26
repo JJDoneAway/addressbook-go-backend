@@ -60,11 +60,13 @@ func (u *User) InsertUser() error {
 		return ErrIdMustBeZero
 	}
 
+	u.ID, _ = sf.NextID()
+
+	//as the id generator ensures unique IDs this is a bit paranoid
+	//but better save than sory
 	if cache[u.ID] != nil {
 		return ErrDuplicatedKey
 	}
-
-	u.ID, _ = sf.NextID()
 
 	cache[u.ID] = u
 	return nil
