@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/sony/sonyflake"
@@ -46,19 +45,6 @@ func init() {
 	if sf == nil {
 		panic("sonyflake not created")
 	}
-
-	fmt.Println("Inserting some samples...")
-	(&User{FirstName: "Hans", LastName: "Kies"}).InsertUser()
-	(&User{FirstName: "Gertrud", LastName: "Kies"}).InsertUser()
-	(&User{FirstName: "Karl Richard", LastName: "Höhne"}).InsertUser()
-	(&User{FirstName: "Karl Michael", LastName: "Höhne"}).InsertUser()
-	(&User{FirstName: "Ingrid", LastName: "Höhne"}).InsertUser()
-	(&User{FirstName: "Johannes", LastName: "Höhne"}).InsertUser()
-	(&User{FirstName: "Ben", LastName: "Höhne"}).InsertUser()
-	(&User{FirstName: "Bettina", LastName: "Karrakchou"}).InsertUser()
-	(&User{FirstName: "Abdelmonim", LastName: "Karrakchou"}).InsertUser()
-	(&User{FirstName: "Elke", LastName: "Karrakchou"}).InsertUser()
-
 }
 
 func (u *User) GetAllUsers() []*User {
