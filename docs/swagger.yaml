@@ -21,6 +21,19 @@ info:
   title: GO Example Addressbook
   version: "1.0"
 paths:
+  /metrics:
+    get:
+      description: Provide a list of all currently provided metrics
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: metrics line by line
+          schema:
+            type: string
+      summary: Get Prometheus metrics
+      tags:
+      - metrics
   /users:
     delete:
       description: Will delete all users. an empty list will be returned

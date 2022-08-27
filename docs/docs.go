@@ -29,6 +29,26 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/metrics": {
+            "get": {
+                "description": "Provide a list of all currently provided metrics",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "metrics"
+                ],
+                "summary": "Get Prometheus metrics",
+                "responses": {
+                    "200": {
+                        "description": "metrics line by line",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "description": "Provide a list of all currently known user",
