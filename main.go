@@ -2,14 +2,10 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/JJDoneAway/addressbook/controllers"
-	docs "github.com/JJDoneAway/addressbook/docs"
-	"github.com/JJDoneAway/addressbook/helper"
+	"github.com/JJDoneAway/addressbook/middleware"
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // @title           GO Example Addressbook
@@ -27,14 +23,11 @@ import (
 func main() {
 	router := gin.Default()
 
-	helper.AddDummies()
+	middleware.AddDummies()
 
-	docs.SwaggerInfo.BasePath = "/"
+	middleware.RegisterSwagger(router)
 
-	router.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html#/")
-	})
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	middleware.RegisterPrometheus(router)
 
 	controllers.AddUserRouts(router)
 
