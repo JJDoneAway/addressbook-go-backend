@@ -146,8 +146,8 @@ nothing to test here
 - [x] Implement all CRUDs in vanilla GO
 - [x] Implement all CRUDs in GIN
 - [x] Add SWAGGER (it is a nightmare)
-- [ ] Add Prometheus metrics (e.g.: https://github.com/penglongli/gin-metrics. or https://prometheus.io/docs/guides/go-application/ or https://github.com/prometheus/client_golang)
-- [x] Add Examples out of file (Using embed)
+- [ ] Add Prometheus metrics
+- [x] Add Examples out of file (Using embed files, to have it in the executable)
 - [ ] Add OAuth
 - [ ] Add Real DB
 
