@@ -6,4 +6,8 @@
 > 
 > For a detailed description please see main branch
 
+# Prometheus
+using supported prometheus go integration
 
+https://prometheus.io/docs/guides/go-application/
+https://github.com/prometheus/client_golang

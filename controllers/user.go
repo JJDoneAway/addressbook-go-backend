@@ -38,15 +38,11 @@ func (uc *userController) parseRequest(r *http.Request) (*models.User, error) {
 }
 
 /*
- * Entry point to the user controller. It implements the handler interface
- * https://pkg.go.dev/net/http#Handler
- *
- * From here we dispatch to the dedicated CRUD methods
+ * Entry point to the user controller.
  */
 func (uc userController) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//as we always talk JSON we can set the header right here once‚
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
 	// Check GET all and POST path.
 	// e.g.: http://localhost:8080/users  and http://localhost:8080/users/
 	// but not http://localhost:8080/users/something else

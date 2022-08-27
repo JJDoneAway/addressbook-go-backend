@@ -6,11 +6,11 @@ import (
 	"net/http"
 )
 
-func RegisterControllers() {
+func RegisterControllers(mux *http.ServeMux) {
 	uc := newUserController()
 
-	http.Handle("/users", uc)
-	http.Handle("/users/", uc)
+	mux.Handle("/users", uc)
+	mux.Handle("/users/", uc)
 }
 
 func EncodeResponseAsJSON(data any, w io.Writer) {

@@ -25,22 +25,20 @@ var port = "8080"
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 func main() {
 	fmt.Println("Register front controllers...")
-
+	mux := http.NewServeMux()
 	middleware.AddDummies()
 
-	middleware.RegisterSwagger()
+	middleware.RegisterSwagger(mux)
 
-	middleware.RegisterPrometheus()
+	middleware.RegisterPrometheus(mux)
 
-	controllers.RegisterControllers()
+	controllers.RegisterControllers(mux)
 
-	startServer()
-}
+	muxWrapper := middleware.NewPrometheus(mux)
 
-func startServer() {
 	// start server
 	fmt.Println("Start http server on port", port)
-	err := http.ListenAndServe(":"+port, nil)
+	err := http.ListenAndServe(":"+port, muxWrapper)
 	fmt.Print("Waiting for requests...")
 	if err != nil {
 		fmt.Print(err)
