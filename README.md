@@ -46,18 +46,18 @@ http://localhost:8080/users
 
 ## Swagger
 ----------
-### install swag
+### Install swag
 https://github.com/swaggo/swag/blob/master/example/basic/api/api.go
 
-### add description
+### Add description
 Add to all exposed REST endpoints the corresponding swagger description
 
 e.g.: https://github.com/swaggo/swag/blob/master/example/basic/api/api.go
 
-### create swagger.json stuff
+### Create swagger.json stuff
 run `swag init` in your root 
 
-### show
+### Show
 open http://localhost:8080
 
 
