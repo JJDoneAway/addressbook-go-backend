@@ -7,6 +7,8 @@ import (
 	"github.com/sony/sonyflake"
 )
 
+// see https://pkg.go.dev/github.com/go-playground/validator
+// for validation
 type User struct {
 	ID        uint64 `json:"ID"`
 	FirstName string `json:"FirstName" binding:"required"`
