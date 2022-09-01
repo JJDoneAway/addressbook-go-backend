@@ -7,10 +7,10 @@ import (
 )
 
 func RegisterControllers(mux *http.ServeMux) {
-	uc := newUserController()
+	uc := newAddressController()
 
-	mux.Handle("/users", uc)
-	mux.Handle("/users/", uc)
+	mux.Handle("/addresses", uc)
+	mux.Handle("/addresses/", uc)
 }
 
 func EncodeResponseAsJSON(data any, w io.Writer) {
