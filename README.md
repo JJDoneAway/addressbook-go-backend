@@ -68,7 +68,7 @@ open http://localhost:8080
 
 ### Get one ID for your examples
 ```
-myID=$(curl localhost:8080/users | jq '.[0]' | jq '.ID') 
+myID=$(curl localhost:8080/users | jq '.[0]' | jq '.id') 
 ```
 
 
@@ -93,30 +93,27 @@ curl -v "http://localhost:8080/users/000" | json_pp
 ### Post one
 #### positive
 ```
-curl -v  -X POST "http://localhost:8080/users" -d '{"FirstName":"Johannes","LastName":"Höhne"}' | json_pp
+curl -v  -X POST "http://localhost:8080/users" -d '{"first-name":"Johannes","last-name":"Höhne", "email":"Johannes@hoehne.de", "phone":"+49123456789"}' | json_pp
 ```
 #### negative
 ```
-curl -v  -X POST "http://localhost:8080/users" -d '{"Pimmel":"Johannes","Pummel":"Höhne"}' | json_pp
+curl -v  -X POST "http://localhost:8080/users" -d '{"first-name":"Johannes","last-name":"Höhne", "email":"NotARealMail", "phone":"123456789"}' | json_pp
 ```
 ```
-curl -v  -X POST "http://localhost:8080/users" -d '{"ID":1234,"FirstName":"Johannes","LastName":"Höhne"}' | json_pp
-```
-```
-curl -v  -X POST "http://localhost:8080/users/1234" -d '{"FirstName":"Johannes","LastName":"Höhne"}' | json_pp
+curl -v  -X POST "http://localhost:8080/users" -d '{"id":1234567,"first-name":"Johannes","last-name":"Höhne", "email":"Johannes@hoehne.de", "phone":"+49123456789"}' | json_pp
 ```
 
 ### Put one
 #### positive
 ```
-curl -v -X PUT "http://localhost:8080/users/$myID" -d '{"ID": '${myID}', "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
+curl -v -X PUT "http://localhost:8080/users/$myID" -d '{"id": '${myID}', "first-name":"Johannes","last-name":"Höhne", "email":"Johannes@hoehne.de", "phone":"+49123456789"}' | json_pp
 ```
 #### negative
 ```
-curl -v -X PUT "http://localhost:8080/users/$myID" -d '{"ID": 11111, "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
+curl -v -X PUT "http://localhost:8080/users/$myID" -d '{"id": 666, "first-name":"Johannes","last-name":"Höhne", "email":"Johannes@hoehne.de", "phone":"+49123456789"}' | json_pp
 ```
 ```
-curl -v -X PUT "http://localhost:8080/users/666" -d '{"ID": 666, "FirstName":"Johannes","LastName":"Höhne"}' | json_pp
+curl -v -X PUT "http://localhost:8080/users/666" -d '{"id": 666, "first-name":"Johannes","last-name":"Höhne", "email":"Johannes@hoehne.de", "phone":"+49123456789"}' | json_pp
 ```
 
 ### Delete one
@@ -132,7 +129,7 @@ curl -v -X DELETE "http://localhost:8080/users/666" | json_pp
 ### Delete all
 #### positive
 ```
-curl -v -X DELETE "http://localhost:8080/users/" | json_pp
+curl -v -X DELETE "http://localhost:8080/users/"
 ```
 #### negative
 nothing to test here
