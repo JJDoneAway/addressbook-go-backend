@@ -10,9 +10,11 @@ import (
 // see https://pkg.go.dev/github.com/go-playground/validator
 // for validation
 type User struct {
-	ID        uint64 `json:"ID"`
-	FirstName string `json:"FirstName" binding:"required"`
-	LastName  string `json:"LastName" binding:"required"`
+	ID        uint64 `json:"id"`
+	FirstName string `json:"first-name" binding:"required,gt=1"`
+	LastName  string `json:"last-name" binding:"required,gt=1"`
+	Email     string `json:"email" binding:"required,email"`
+	Phone     string `json:"phone" binding:"required,e164"`
 }
 
 type Entity interface {
@@ -49,6 +51,11 @@ func init() {
 	}
 }
 
+func NextID() uint64 {
+	id, _ := sf.NextID()
+	return id
+}
+
 func (u *User) GetAllUsers() []*User {
 	ret := make([]*User, 0, len(cache))
 	for _, v := range cache {
@@ -65,7 +72,7 @@ func (u *User) InsertUser() error {
 	u.ID, _ = sf.NextID()
 
 	//as the id generator ensures unique IDs this is a bit paranoid
-	//but better save than sory
+	//but better save than sorry
 	if cache[u.ID] != nil {
 		return ErrDuplicatedKey
 	}

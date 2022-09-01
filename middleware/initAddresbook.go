@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
+	"log"
+	"strconv"
 	"strings"
 
 	"github.com/JJDoneAway/addressbook/models"
@@ -23,7 +25,12 @@ func AddDummies() {
 
 	for fileScanner.Scan() {
 		name := strings.Split(fileScanner.Text(), " ")
-		(&models.User{FirstName: name[0], LastName: name[1]}).InsertUser()
+		user := models.User{FirstName: name[0], LastName: name[1], Email: fmt.Sprintf("%v@%v.de", name[0], name[1]), Phone: "+49" + strconv.Itoa(int(models.NextID()))}
+		log.Default().Print(user)
+		if err := user.InsertUser(); err != nil {
+			panic(user)
+		}
+
 	}
 
 	fs.Close()

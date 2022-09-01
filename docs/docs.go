@@ -240,17 +240,25 @@ const docTemplate = `{
         "models.User": {
             "type": "object",
             "required": [
-                "FirstName",
-                "LastName"
+                "email",
+                "first-name",
+                "last-name",
+                "phone"
             ],
             "properties": {
-                "FirstName": {
+                "email": {
                     "type": "string"
                 },
-                "ID": {
+                "first-name": {
+                    "type": "string"
+                },
+                "id": {
                     "type": "integer"
                 },
-                "LastName": {
+                "last-name": {
+                    "type": "string"
+                },
+                "phone": {
                     "type": "string"
                 }
             }
