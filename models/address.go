@@ -9,7 +9,7 @@ import (
 
 // see https://pkg.go.dev/github.com/go-playground/validator
 // for validation
-type User struct {
+type Address struct {
 	ID        uint64 `json:"id"`
 	FirstName string `json:"first-name" binding:"required,gt=1"`
 	LastName  string `json:"last-name" binding:"required,gt=1"`
@@ -18,9 +18,9 @@ type User struct {
 }
 
 type Entity interface {
-	GetAllUsers() []*User
+	GetAllUsers() []*Address
 	InsertUser() error
-	GetUserByID() (*User, error)
+	GetUserByID() (*Address, error)
 	UpdateUser() error
 	DeleteUserByID() error
 	DeleteAllUsers() error
@@ -36,11 +36,11 @@ var (
 	ErrUnknownID     = errors.New("id is unknown")
 	ErrDuplicatedKey = errors.New("the key we generated already exists")
 
-	cache map[uint64]*User
+	cache map[uint64]*Address
 )
 
 func init() {
-	cache = make(map[uint64]*User)
+	cache = make(map[uint64]*Address)
 
 	var st sonyflake.Settings
 	st.StartTime = time.Now()
@@ -56,15 +56,15 @@ func NextID() uint64 {
 	return id
 }
 
-func (u *User) GetAllUsers() []*User {
-	ret := make([]*User, 0, len(cache))
+func (u *Address) GetAllAddresses() []*Address {
+	ret := make([]*Address, 0, len(cache))
 	for _, v := range cache {
 		ret = append(ret, v)
 	}
 	return ret
 }
 
-func (u *User) InsertUser() error {
+func (u *Address) InsertAddress() error {
 	if u.ID != 0 {
 		return ErrIdMustBeZero
 	}
@@ -81,7 +81,7 @@ func (u *User) InsertUser() error {
 	return nil
 }
 
-func (u *User) GetUserByID() (*User, error) {
+func (u *Address) GetAddressByID() (*Address, error) {
 	ret := cache[u.ID]
 	if ret == nil {
 		return nil, ErrUnknownID
@@ -91,7 +91,7 @@ func (u *User) GetUserByID() (*User, error) {
 
 }
 
-func (u *User) UpdateUser() error {
+func (u *Address) UpdateAddress() error {
 	if cache[u.ID] == nil {
 		return ErrUnknownID
 	}
@@ -99,7 +99,7 @@ func (u *User) UpdateUser() error {
 	return nil
 }
 
-func (u *User) DeleteUserByID() error {
+func (u *Address) DeleteAddressByID() error {
 	if cache[u.ID] == nil {
 		return ErrUnknownID
 	}
@@ -108,7 +108,7 @@ func (u *User) DeleteUserByID() error {
 	return nil
 }
 
-func (u *User) DeleteAllUsers() error {
-	cache = make(map[uint64]*User)
+func (u *Address) DeleteAllAddresses() error {
+	cache = make(map[uint64]*Address)
 	return nil
 }

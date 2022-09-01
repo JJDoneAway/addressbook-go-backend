@@ -21,7 +21,7 @@ func TestAPIGetAllUsers(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/users", nil)
 
 	r := gin.Default()
-	controllers.AddUserRouts(r)
+	controllers.AddAddressRouts(r)
 
 	r.ServeHTTP(rec, req)
 
@@ -31,7 +31,7 @@ func TestAPIGetAllUsers(t *testing.T) {
 		t.Fail()
 	}
 
-	var users []models.User
+	var users []models.Address
 	err := json.NewDecoder(res.Body).Decode(&users)
 	if err != nil {
 		t.Error(err)
@@ -52,13 +52,13 @@ func TestAPIGetAllUsers(t *testing.T) {
 
 func TestAPIGetUser(t *testing.T) {
 	middleware.AddDummies()
-	want := (&models.User{}).GetAllUsers()[0]
+	want := (&models.Address{}).GetAllAddresses()[0]
 
 	rec := httptest.NewRecorder()
 	req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("/users/%d", want.ID), nil)
 
 	r := gin.Default()
-	controllers.AddUserRouts(r)
+	controllers.AddAddressRouts(r)
 
 	r.ServeHTTP(rec, req)
 
@@ -68,7 +68,7 @@ func TestAPIGetUser(t *testing.T) {
 		t.Fail()
 	}
 
-	var user models.User
+	var user models.Address
 	err := json.NewDecoder(res.Body).Decode(&user)
 	if err != nil {
 		t.Error(err)
@@ -88,7 +88,7 @@ func TestAPIGetUserErrors(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("/users/%d", -666), nil)
 
 	r := gin.Default()
-	controllers.AddUserRouts(r)
+	controllers.AddAddressRouts(r)
 
 	r.ServeHTTP(rec, req)
 
@@ -108,7 +108,7 @@ func TestAPIPostUser(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/users", bytes.NewReader([]byte(want)))
 
 	r := gin.Default()
-	controllers.AddUserRouts(r)
+	controllers.AddAddressRouts(r)
 
 	r.ServeHTTP(rec, req)
 
@@ -118,7 +118,7 @@ func TestAPIPostUser(t *testing.T) {
 		t.Error(res)
 	}
 
-	var user models.User
+	var user models.Address
 	err := json.NewDecoder(res.Body).Decode(&user)
 	if err != nil {
 		t.Error(err)

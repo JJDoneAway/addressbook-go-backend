@@ -29,7 +29,7 @@ func main() {
 
 	middleware.RegisterPrometheus(router)
 
-	controllers.AddUserRouts(router)
+	controllers.AddAddressRouts(router)
 
 	log.Fatal(router.Run(":8080"))
 

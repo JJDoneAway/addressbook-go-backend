@@ -1,7 +1,7 @@
 consumes:
 - application/json
 definitions:
-  models.User:
+  models.Address:
     properties:
       email:
         type: string
@@ -30,6 +30,130 @@ info:
   title: GO Example Addressbook
   version: "1.0"
 paths:
+  /addresses:
+    delete:
+      description: Will delete all addresses. an empty list will be returned
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete all addresses
+      tags:
+      - addresses
+    get:
+      description: Provide a list of all currently known addresses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Address'
+            type: array
+      summary: List all addresses
+      tags:
+      - addresses
+    post:
+      consumes:
+      - application/json
+      description: Will add a new addresses entity to the storage. The new created
+        addresses will be returned. Don't add the Id to the addresses parameter
+      parameters:
+      - description: The new addresses without ID
+        in: body
+        name: addresses
+        required: true
+        schema:
+          $ref: '#/definitions/models.Address'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: ID must be zero, Unparsable JSON body
+          schema:
+            type: string
+      summary: Add a new addresses
+      tags:
+      - addresses
+  /addresses/{id}:
+    delete:
+      description: Delete a address with the provided ID
+      parameters:
+      - description: ID of the address
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Unknown ID
+          schema:
+            type: string
+      summary: Delete one address
+      tags:
+      - addresses
+    get:
+      description: Get a address with the provided ID
+      parameters:
+      - description: ID of the user
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Address'
+        "400":
+          description: Unknown ID
+          schema:
+            type: string
+      summary: Get one address
+      tags:
+      - addresses
+    put:
+      consumes:
+      - application/json
+      description: Will update an existing address which is identified via its ID
+      parameters:
+      - description: ID of the address
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: The new address without ID
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.Address'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Address'
+        "400":
+          description: Unknown ID, ID miss match, Unparsable JSON body
+          schema:
+            type: string
+      summary: Update an existing address
+      tags:
+      - addresses
   /metrics:
     get:
       description: Provide a list of all currently known Prometheus metrics
@@ -43,130 +167,6 @@ paths:
       summary: List all Prometheus metrics
       tags:
       - metrics
-  /users:
-    delete:
-      description: Will delete all users. an empty list will be returned
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-      summary: Delete all users
-      tags:
-      - users
-    get:
-      description: Provide a list of all currently known user
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.User'
-            type: array
-      summary: List all users
-      tags:
-      - users
-    post:
-      consumes:
-      - application/json
-      description: Will add a new user entity to the storage. The new created user
-        will be returned. Don't add the Id to the user parameter
-      parameters:
-      - description: The new User without ID
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/models.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-        "400":
-          description: ID must be zero, Unparsable JSON body
-          schema:
-            type: string
-      summary: Add a new user
-      tags:
-      - users
-  /users/{id}:
-    delete:
-      description: Delete a user with the provided ID
-      parameters:
-      - description: ID of the user
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-        "400":
-          description: Unknown ID
-          schema:
-            type: string
-      summary: Delete one user
-      tags:
-      - users
-    get:
-      description: Get a user with the provided ID
-      parameters:
-      - description: ID of the user
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.User'
-        "400":
-          description: Unknown ID
-          schema:
-            type: string
-      summary: Get one user
-      tags:
-      - users
-    put:
-      consumes:
-      - application/json
-      description: Will update an existing user which is identified via its ID
-      parameters:
-      - description: ID of the user
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: The new User without ID
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/models.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.User'
-        "400":
-          description: Unknown ID, ID miss match, Unparsable JSON body
-          schema:
-            type: string
-      summary: Update an existing user
-      tags:
-      - users
 produces:
 - application/json
 swagger: "2.0"
