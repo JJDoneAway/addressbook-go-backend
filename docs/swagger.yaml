@@ -1,172 +1,174 @@
-consumes:
-- application/json
-definitions:
-  models.Address:
-    properties:
-      email:
-        type: string
-      first-name:
-        type: string
-      id:
-        type: integer
-      last-name:
-        type: string
-      phone:
-        type: string
-    required:
-    - email
-    - first-name
-    - last-name
-    - phone
-    type: object
-info:
-  contact:
-    email: Johannes.Hoehne1@mail.schwarz
-    name: Johannes Höhne
-  description: This is a simple GO application with some basic REST CRUD operations.
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: GO Example Addressbook
-  version: "1.0"
-paths:
-  /addresses:
-    delete:
-      description: Will delete all addresses. an empty list will be returned
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-      summary: Delete all addresses
-      tags:
-      - addresses
-    get:
-      description: Provide a list of all currently known addresses
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Address'
-            type: array
-      summary: List all addresses
-      tags:
-      - addresses
-    post:
-      consumes:
-      - application/json
-      description: Will add a new address entity to the storage. The new created user
-        will be returned. Don't add the Id to the user parameter
-      parameters:
-      - description: The new User without ID
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/models.Address'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-        "400":
-          description: ID must be zero, Unparsable JSON body
-          schema:
-            type: string
-      summary: Add a new address
-      tags:
-      - addresses
-  /addresses/{id}:
-    delete:
-      description: Delete a address with the provided ID
-      parameters:
-      - description: ID of the address
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-        "400":
-          description: Unknown ID
-          schema:
-            type: string
-      summary: Delete one address
-      tags:
-      - addresses
-    get:
-      description: Get a address with the provided ID
-      parameters:
-      - description: ID of the user
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Address'
-        "400":
-          description: Unknown ID
-          schema:
-            type: string
-      summary: Get one addresses
-      tags:
-      - addresses
-    put:
-      consumes:
-      - application/json
-      description: Will update an existing address which is identified via its ID
-      parameters:
-      - description: ID of the address
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: The new address without ID
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/models.Address'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Address'
-        "400":
-          description: Unknown ID, ID miss match, Unparsable JSON body
-          schema:
-            type: string
-      summary: Update an existing address
-      tags:
-      - addresses
-  /metrics:
-    get:
-      description: Provide a list of all currently provided metrics
-      produces:
-      - text/plain
-      responses:
-        "200":
-          description: metrics line by line
-          schema:
-            type: string
-      summary: Get Prometheus metrics
-      tags:
-      - metrics
-produces:
-- application/json
+---
 swagger: "2.0"
+info:
+  description: "Simple AddressBook API to manage contacts"
+  version: "1.0"
+  title: "Contacts"
+  contact:
+    name: "ODJ Traiings-Team"
+    email: "john.doe@mail.schwarz"
+host: "live.api.schwarz"
+basePath: "/addressbook/v1"
+tags:
+- name: "Contacts"
+  description: "API enpoints to retrieve, change, create or delete Contacts."
+schemes:
+- "https"
+paths:
+  /contacts:
+    get:
+      tags:
+      - "Contacts"
+      summary: "Get the list of contacts"
+      description: "Get the list of contacts."
+      operationId: "getContacts"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Contact"
+        "500":
+          description: "Internal Server Error"
+    post:
+      tags:
+      - "Contacts"
+      summary: "Creates a new contact"
+      description: "Creates a new contact; the contact data in the request body does\
+        \ not include the ID"
+      operationId: "createContact"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "contact"
+        description: "The contact to create."
+        required: false
+        schema:
+          $ref: "#/definitions/Contact"
+        x-exportParamName: "Contact"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Contact"
+        "412":
+          description: "Precondition Failed"
+  /contacts/{ID}:
+    get:
+      tags:
+      - "Contacts"
+      summary: "Get the Contact specified by ID"
+      description: "Get the Contact specified by ID."
+      operationId: "getContact"
+      parameters:
+      - name: "ID"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ID"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Contact"
+        "400":
+          description: "Bad Request"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+    put:
+      tags:
+      - "Contacts"
+      summary: "Updates an existing contact"
+      description: "Updates an existing contact"
+      operationId: "updateContact"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "ID"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ID"
+      - in: "body"
+        name: "contact"
+        description: "The contact to udpate."
+        required: false
+        schema:
+          $ref: "#/definitions/Contact"
+        x-exportParamName: "Contact"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Contact"
+        "412":
+          description: "Precondition Failed"
+    delete:
+      tags:
+      - "Contacts"
+      summary: "Deletes the Contact specified by ID"
+      description: "Deletes the Contact specified by ID"
+      operationId: "deleteContact"
+      parameters:
+      - name: "ID"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ID"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Bad Request"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+definitions:
+  Contact:
+    type: "object"
+    required:
+    - "firstName"
+    - "lastName"
+    properties:
+      ID:
+        type: "integer"
+        description: "ID of the contact"
+      firstName:
+        type: "string"
+        description: "first name of the contact"
+      lastName:
+        type: "string"
+        description: "last name of the contact"
+      street:
+        type: "string"
+        description: "street of home address of the contact"
+      zipCode:
+        type: "integer"
+        description: "ZIP code of home address of the contact"
+      city:
+        type: "string"
+        description: "city of home address of the contact"
+      email:
+        type: "string"
+        format: "email"
+        description: "email address of the contact"
+      phone:
+        type: "string"
+        description: "phone number of the contact"
+    title: "Contact"
+    description: "Represents a Contact entry."
+    example:
+      firstName: "firstName"
+      lastName: "lastName"
+      zipCode: 0
+      city: "city"
+      phone: "phone"
+      street: "street"
+      ID: 91726
+      email: "john.doe@foo.com"

@@ -1,258 +1,248 @@
 {
-    "consumes": [
-        "application/json"
-    ],
-    "produces": [
-        "application/json"
-    ],
     "swagger": "2.0",
     "info": {
-        "description": "This is a simple GO application with some basic REST CRUD operations.",
-        "title": "GO Example Addressbook",
-        "contact": {
-            "name": "Johannes Höhne",
-            "email": "Johannes.Hoehne1@mail.schwarz"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
-        "version": "1.0"
+      "description": "Simple AddressBook API to manage contacts",
+      "version": "1.0",
+      "title": "Contacts",
+      "contact": {
+        "name": "ODJ Traiings-Team",
+        "email": "john.doe@mail.schwarz"
+      }
     },
+    "host": "live.api.schwarz",
+    "basePath": "/addressbook/v1",
+    "tags": [
+      {
+        "name": "Contacts",
+        "description": "API enpoints to retrieve, change, create or delete Contacts."
+      }
+    ],
+    "schemes": [
+      "https"
+    ],
     "paths": {
-        "/addresses": {
-            "get": {
-                "description": "Provide a list of all currently known addresses",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "addresses"
-                ],
-                "summary": "List all addresses",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Address"
-                            }
-                        }
-                    }
+      "/contacts": {
+        "get": {
+          "tags": [
+            "Contacts"
+          ],
+          "summary": "Get the list of contacts",
+          "description": "Get the list of contacts.",
+          "operationId": "getContacts",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Contact"
                 }
+              }
             },
-            "post": {
-                "description": "Will add a new address entity to the storage. The new created user will be returned. Don't add the Id to the user parameter",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "addresses"
-                ],
-                "summary": "Add a new address",
-                "parameters": [
-                    {
-                        "description": "The new User without ID",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Address"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    },
-                    "400": {
-                        "description": "ID must be zero, Unparsable JSON body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Will delete all addresses. an empty list will be returned",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "addresses"
-                ],
-                "summary": "Delete all addresses",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
+            "500": {
+              "description": "Internal Server Error"
             }
+          }
         },
-        "/addresses/{id}": {
-            "get": {
-                "description": "Get a address with the provided ID",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "addresses"
-                ],
-                "summary": "Get one addresses",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "ID of the user",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Address"
-                        }
-                    },
-                    "400": {
-                        "description": "Unknown ID",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Will update an existing address which is identified via its ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "addresses"
-                ],
-                "summary": "Update an existing address",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "ID of the address",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "The new address without ID",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Address"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Address"
-                        }
-                    },
-                    "400": {
-                        "description": "Unknown ID, ID miss match, Unparsable JSON body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete a address with the provided ID",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "addresses"
-                ],
-                "summary": "Delete one address",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "ID of the address",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Unknown ID",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
+        "post": {
+          "tags": [
+            "Contacts"
+          ],
+          "summary": "Creates a new contact",
+          "description": "Creates a new contact; the contact data in the request body does not include the ID",
+          "operationId": "createContact",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "contact",
+              "description": "The contact to create.",
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              },
+              "x-exportParamName": "Contact"
             }
-        },
-        "/metrics": {
-            "get": {
-                "description": "Provide a list of all currently provided metrics",
-                "produces": [
-                    "text/plain"
-                ],
-                "tags": [
-                    "metrics"
-                ],
-                "summary": "Get Prometheus metrics",
-                "responses": {
-                    "200": {
-                        "description": "metrics line by line",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              }
+            },
+            "412": {
+              "description": "Precondition Failed"
             }
+          }
         }
+      },
+      "/contacts/{ID}": {
+        "get": {
+          "tags": [
+            "Contacts"
+          ],
+          "summary": "Get the Contact specified by ID",
+          "description": "Get the Contact specified by ID.",
+          "operationId": "getContact",
+          "parameters": [
+            {
+              "name": "ID",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "x-exportParamName": "ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "Contacts"
+          ],
+          "summary": "Updates an existing contact",
+          "description": "Updates an existing contact",
+          "operationId": "updateContact",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "ID",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "x-exportParamName": "ID"
+            },
+            {
+              "in": "body",
+              "name": "contact",
+              "description": "The contact to udpate.",
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              },
+              "x-exportParamName": "Contact"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Contact"
+              }
+            },
+            "412": {
+              "description": "Precondition Failed"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Contacts"
+          ],
+          "summary": "Deletes the Contact specified by ID",
+          "description": "Deletes the Contact specified by ID",
+          "operationId": "deleteContact",
+          "parameters": [
+            {
+              "name": "ID",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "x-exportParamName": "ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
     },
     "definitions": {
-        "models.Address": {
-            "type": "object",
-            "required": [
-                "email",
-                "first-name",
-                "last-name",
-                "phone"
-            ],
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "first-name": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "last-name": {
-                    "type": "string"
-                },
-                "phone": {
-                    "type": "string"
-                }
-            }
+      "Contact": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "description": "ID of the contact"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "first name of the contact"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "last name of the contact"
+          },
+          "street": {
+            "type": "string",
+            "description": "street of home address of the contact"
+          },
+          "zipCode": {
+            "type": "integer",
+            "description": "ZIP code of home address of the contact"
+          },
+          "city": {
+            "type": "string",
+            "description": "city of home address of the contact"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "email address of the contact"
+          },
+          "phone": {
+            "type": "string",
+            "description": "phone number of the contact"
+          }
+        },
+        "title": "Contact",
+        "description": "Represents a Contact entry.",
+        "example": {
+          "firstName": "firstName",
+          "lastName": "lastName",
+          "zipCode": 0,
+          "city": "city",
+          "phone": "phone",
+          "street": "street",
+          "ID": 91726,
+          "email": "john.doe@foo.com"
         }
+      }
     }
-}
+  }
