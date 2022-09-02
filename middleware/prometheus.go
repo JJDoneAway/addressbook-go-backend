@@ -52,10 +52,10 @@ func NewPrometheus(handlerToWrap http.Handler) *Prometheus {
 
 // Middleware wrapper around every http call to do some prometheus metric exposure
 // in here
-func (l *Prometheus) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (prometheus *Prometheus) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 	rec := statusRecorder{w, http.StatusOK}
-	l.handler.ServeHTTP(&rec, r)
+	prometheus.handler.ServeHTTP(&rec, r)
 
 	pathFragments := regexp.MustCompile(`^/([^/]+)/?`).FindStringSubmatch(r.URL.Path)
 	path := "/"
