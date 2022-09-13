@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/JJDoneAway/addressbook/controllers"
@@ -28,6 +29,10 @@ func main() {
 	mux := http.NewServeMux()
 	middleware.AddDummies()
 
+	mux.HandleFunc("*", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Hallo")
+	})
+
 	middleware.RegisterSwagger(mux)
 
 	middleware.RegisterPrometheus(mux)
@@ -44,3 +49,5 @@ func main() {
 		fmt.Print(err)
 	}
 }
+
+
