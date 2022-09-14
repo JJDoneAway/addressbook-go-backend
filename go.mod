@@ -22,6 +22,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
+	github.com/rs/cors v1.8.2 // indirect
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a // indirect
 	github.com/swaggo/http-swagger v1.3.3 // indirect
 	github.com/swaggo/http-swagger/example/go-chi v0.0.0-20220809182543-c8d62bfd8fdb // indirect
