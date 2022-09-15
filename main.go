@@ -11,6 +11,7 @@
 package main
 
 import (
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 
@@ -23,6 +24,7 @@ func main() {
 
 	middleware.AddDummies()
 	router := sw.NewRouter()
+	handler := cors.AllowAll().Handler(router)
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8080", handler))
 }
