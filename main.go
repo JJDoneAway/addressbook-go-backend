@@ -5,6 +5,7 @@ import (
 
 	"github.com/JJDoneAway/addressbook/controllers"
 	"github.com/JJDoneAway/addressbook/middleware"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,6 +26,8 @@ func main() {
 
 	middleware.AddDummies()
 
+	addCors(router)
+
 	middleware.RegisterSwagger(router)
 
 	middleware.RegisterPrometheus(router)
@@ -33,4 +36,8 @@ func main() {
 
 	log.Fatal(router.Run(":8080"))
 
+}
+
+func addCors(router *gin.Engine) {
+	router.Use(cors.Default())
 }
