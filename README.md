@@ -1,22 +1,33 @@
 # Simple Enterprise Application 
 
-> This branch hosts the GIN GONIC implementation.
+> This branch hosts the GORM implementation.
 >
-> GIN is used to do all the routing and error handling.
+> GORM is used to do the data base conversation in an most easy way.
 >
 > For detailed description please see main branch
+>
+> This branch is based on the gin branch. So it is already using GIN, Swagger and Prometheus
 
 
-# SWAGGER
-Follow the instructions of https://github.com/swaggo/gin-swagger
+# GORM
+Follow the instructions of https://gorm.io/
 
 Open http:localhost:8080
 
-It is so very inconvenient if you did it once in Spring :( 
+# Run code
+1. Star local a PostgreSQL 
+```
+docker run --rm -p 5432:5432 -e POSTGRES_PASSWORD="1234" --name pg postgres:alpine
+```
 
-# Prometheus
-Using GIN module
+2. Check if your DB id running and the inserted stuff
+```
+pgcli postgresql://postgres:1234@localhost:5432/postgres
+```
 
-https://github.com/penglongli/gin-metrics
+3. Start code
+```
+go run .
+```
 
-is quite comfortable 
+

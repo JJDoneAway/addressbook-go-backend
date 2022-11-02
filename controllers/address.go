@@ -7,6 +7,7 @@ import (
 
 	"github.com/JJDoneAway/addressbook/models"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 func AddAddressRouts(router *gin.Engine) {
@@ -44,11 +45,6 @@ func doPOST(c *gin.Context) {
 		return
 	}
 
-	if err := user.InsertAddress(); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
 	c.JSON(http.StatusOK, user)
 }
 
@@ -73,9 +69,9 @@ func doDeleteAll(c *gin.Context) {
 // @Router       /addresses/{id} [get]
 func doGet(c *gin.Context) {
 	ID := getID(c)
-	user, err := (&models.Address{ID: ID}).GetAddressByID()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("For your ID '%s' we got '%v'", c.Param("id"), err.Error())})
+	user := (&models.Address{Model: gorm.Model{ID: ID}}).GetAddressByID()
+	if user == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Unknown ID"})
 		return
 	}
 	c.JSON(http.StatusOK, user)
@@ -99,16 +95,16 @@ func doPut(c *gin.Context) {
 	}
 
 	ID := getID(c)
-	if ID != user.ID {
+	if ID != user.Model.ID {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The id out of the address entity '%d' must be equal to the id of the url path '%d', but wasn't", user.ID, ID)})
 		return
 	}
 
-	err := user.UpdateAddress()
-	if err == models.ErrUnknownID {
-		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The address with the id '%d' is unknown. Maybe you mean a POST request", user.ID)})
-		return
-	}
+	// err := user.UpdateAddress()
+	// if err == models.ErrUnknownID {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The address with the id '%d' is unknown. Maybe you mean a POST request", user.ID)})
+	// 	return
+	// }
 
 	c.JSON(http.StatusOK, user)
 }
@@ -123,7 +119,8 @@ func doPut(c *gin.Context) {
 // @Router       /addresses/{id} [delete]
 func doDelete(c *gin.Context) {
 	ID := getID(c)
-	err := (&models.Address{ID: ID}).DeleteAddressByID()
+
+	err := (&models.Address{Model: gorm.Model{ID: ID}}).DeleteAddressByID()
 	if err == models.ErrUnknownID {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The address with the id '%d' is unknown.", ID)})
 		return
@@ -137,10 +134,10 @@ func doDelete(c *gin.Context) {
 ////////////////
 
 // Helper function as I don't know how to do this in gin
-func getID(c *gin.Context) uint64 {
+func getID(c *gin.Context) uint {
 	ret, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
 		return 0
 	}
-	return ret
+	return uint(ret)
 }
