@@ -12,7 +12,6 @@ import (
 // for validation
 type Address struct {
 	gorm.Model
-	ID        uint   `gorm:"primaryKey" json:"id"`
 	FirstName string `json:"first-name" binding:"required,gt=1"`
 	LastName  string `json:"last-name" binding:"required,gt=1"`
 	Email     string `json:"email" binding:"required,email"`
