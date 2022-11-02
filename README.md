@@ -68,7 +68,7 @@ open http://localhost:8080
 
 ### Get one ID for your examples
 ```
-myID=$(curl localhost:8080/addresses | jq '.[0]' | jq '.id | ascii_downcase') 
+myID=$(curl localhost:8080/addresses | jq '.[0]' | jq '.id') 
 ```
 
 
