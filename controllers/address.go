@@ -7,7 +7,6 @@ import (
 
 	"github.com/JJDoneAway/addressbook/models"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 func AddAddressRouts(router *gin.Engine) {
@@ -26,7 +25,7 @@ func AddAddressRouts(router *gin.Engine) {
 // @Success      200  {array}  models.Address
 // @Router       /addresses [get]
 func doGetAll(c *gin.Context) {
-	c.JSON(http.StatusOK, (&models.Address{}).GetAllAddresses())
+	c.JSON(http.StatusOK, models.GetAllAddresses())
 }
 
 // @Summary      Add a new addresses
@@ -45,6 +44,13 @@ func doPOST(c *gin.Context) {
 		return
 	}
 
+	if user.ID != 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID must not be set"})
+		return
+	}
+
+	user.InsertAddress()
+
 	c.JSON(http.StatusOK, user)
 }
 
@@ -55,8 +61,11 @@ func doPOST(c *gin.Context) {
 // @Success      200
 // @Router       /addresses [delete]
 func doDeleteAll(c *gin.Context) {
-	(&models.Address{}).DeleteAllAddresses()
-	c.JSON(http.StatusOK, (&models.Address{}).GetAllAddresses())
+	if ok := models.DeleteAllAddresses(); ok != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": ok})
+		return
+	}
+	c.JSON(http.StatusOK, models.GetAllAddresses())
 }
 
 // @Summary      Get one address
@@ -69,7 +78,7 @@ func doDeleteAll(c *gin.Context) {
 // @Router       /addresses/{id} [get]
 func doGet(c *gin.Context) {
 	ID := getID(c)
-	user := (&models.Address{Model: gorm.Model{ID: ID}}).GetAddressByID()
+	user := (&models.Address{ID: ID}).GetAddressByID()
 	if user == nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Unknown ID"})
 		return
@@ -95,16 +104,16 @@ func doPut(c *gin.Context) {
 	}
 
 	ID := getID(c)
-	if ID != user.Model.ID {
+	if ID != user.ID {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The id out of the address entity '%d' must be equal to the id of the url path '%d', but wasn't", user.ID, ID)})
 		return
 	}
 
-	// err := user.UpdateAddress()
-	// if err == models.ErrUnknownID {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The address with the id '%d' is unknown. Maybe you mean a POST request", user.ID)})
-	// 	return
-	// }
+	err := user.UpdateAddress()
+	if err == models.ErrUnknownID {
+		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The address with the id '%d' is unknown. Maybe you mean a POST request", user.ID)})
+		return
+	}
 
 	c.JSON(http.StatusOK, user)
 }
@@ -120,8 +129,7 @@ func doPut(c *gin.Context) {
 func doDelete(c *gin.Context) {
 	ID := getID(c)
 
-	err := (&models.Address{Model: gorm.Model{ID: ID}}).DeleteAddressByID()
-	if err == models.ErrUnknownID {
+	if err := (&models.Address{ID: ID}).DeleteAddressByID(); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("The address with the id '%d' is unknown.", ID)})
 		return
 	}

@@ -52,7 +52,7 @@ func TestAPIGetAllUsers(t *testing.T) {
 
 func TestAPIGetUser(t *testing.T) {
 	middleware.AddDummies()
-	want := (&models.Address{}).GetAllAddresses()[0]
+	want := models.GetAllAddresses()[0]
 
 	rec := httptest.NewRecorder()
 	req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("/users/%d", want.ID), nil)

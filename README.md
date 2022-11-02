@@ -37,7 +37,7 @@ go run .
 
 ### Get one ID for your examples
 ```
-myID=$(curl localhost:8080/addresses | jq '.[0]' | jq '.ID') 
+myID=$(curl localhost:8080/addresses | jq '.[0]' | jq '.id') 
 ```
 
 
