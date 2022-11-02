@@ -68,7 +68,7 @@ open http://localhost:8080
 
 ### Get one ID for your examples
 ```
-myID=$(curl localhost:8080/addresses | jq '.[0]' | jq '.id') 
+myID=$(curl localhost:8080/addresses | jq '.[0]' | jq '.id | ascii_downcase') 
 ```
 
 
@@ -146,5 +146,5 @@ nothing to test here
 - [x] Add Prometheus metrics
 - [x] Add Examples out of file (Using embed files, to have it in the executable)
 - [ ] Add OAuth
-- [ ] Add Real DB
+- [x] Add Real DB
 
