@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"embed"
 	"fmt"
+	"math/rand"
 	"strings"
 
 	"github.com/JJDoneAway/addressbook/models"
@@ -23,8 +24,14 @@ func AddDummies() {
 
 	for fileScanner.Scan() {
 		name := strings.Split(fileScanner.Text(), " ")
-		user := models.Address{FirstName: name[0], LastName: name[1], Email: fmt.Sprintf("%v@%v.de", name[0], name[1]), Phone: "+495587788"}
+		user := models.Address{FirstName: name[0], LastName: name[1], Email: fmt.Sprintf("%v@%v.de", name[0], name[1]), Phone: nextPhoneNumber()}
 		user.InsertAddress()
 	}
 	fs.Close()
+}
+
+func nextPhoneNumber() string {
+	min := 10000000000
+	max := 99999999999
+	return fmt.Sprint("+49", rand.Intn(max-min)+min)
 }

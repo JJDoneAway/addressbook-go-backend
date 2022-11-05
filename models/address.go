@@ -16,8 +16,8 @@ type Address struct {
 	ID        uint      `gorm:"primarykey" json:"id"`
 	CreatedAt time.Time `gorm:"<-:create" json:"-"`
 	UpdatedAt time.Time `json:"-"`
-	FirstName string    `json:"first-name" binding:"required,gt=1"`
-	LastName  string    `json:"last-name" binding:"required,gt=1"`
+	FirstName string    `json:"firstName" binding:"required,gt=1"`
+	LastName  string    `json:"lastName" binding:"required,gt=1"`
 	Email     string    `json:"email" binding:"required,email"`
 	Phone     string    `json:"phone" binding:"required,e164"`
 }
