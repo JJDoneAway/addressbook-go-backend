@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/JJDoneAway/addressbook/middleware"
 	"github.com/JJDoneAway/addressbook/models"
 	"github.com/gin-gonic/gin"
 )
@@ -16,6 +17,7 @@ func AddAddressRouts(router *gin.Engine) {
 	router.GET("addresses/:id", doGet)
 	router.PUT("addresses/:id", doPut)
 	router.DELETE("addresses/:id", doDelete)
+	router.PATCH("addresses", doReset)
 }
 
 // @Summary      List all addresses
@@ -135,6 +137,18 @@ func doDelete(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, fmt.Sprintf("The address with the id '%d' is terminated.", ID))
 
+}
+
+// @Summary      Reset address book
+// @Description  Will delete all addresses from the DB and reset the db to the default dummies
+// @Tags         addresses
+// @Produce      json
+// @Success      200  {string}  string
+// @Router       /addresses [patch]
+func doReset(c *gin.Context) {
+	doDeleteAll(c)
+	middleware.AddDummies()
+	c.JSON(http.StatusOK, "all dummies had been restored")
 }
 
 ////////////////

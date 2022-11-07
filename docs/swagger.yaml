@@ -5,18 +5,18 @@ definitions:
     properties:
       email:
         type: string
-      first-name:
+      firstName:
         type: string
       id:
         type: integer
-      last-name:
+      lastName:
         type: string
       phone:
         type: string
     required:
     - email
-    - first-name
-    - last-name
+    - firstName
+    - lastName
     - phone
     type: object
 info:
@@ -53,6 +53,19 @@ paths:
               $ref: '#/definitions/models.Address'
             type: array
       summary: List all addresses
+      tags:
+      - addresses
+    patch:
+      description: Will delete all addresses from the DB and reset the db to the default
+        dummies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Reset address book
       tags:
       - addresses
     post:

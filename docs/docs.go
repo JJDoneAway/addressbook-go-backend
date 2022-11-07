@@ -100,6 +100,24 @@ const docTemplate = `{
                         "description": "OK"
                     }
                 }
+            },
+            "patch": {
+                "description": "Will delete all addresses from the DB and reset the db to the default dummies",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "addresses"
+                ],
+                "summary": "Reset address book",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
         },
         "/addresses/{id}": {
@@ -241,21 +259,21 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "email",
-                "first-name",
-                "last-name",
+                "firstName",
+                "lastName",
                 "phone"
             ],
             "properties": {
                 "email": {
                     "type": "string"
                 },
-                "first-name": {
+                "firstName": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
                 },
-                "last-name": {
+                "lastName": {
                     "type": "string"
                 },
                 "phone": {
