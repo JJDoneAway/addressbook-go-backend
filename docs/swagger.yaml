@@ -180,6 +180,28 @@ paths:
       summary: List all Prometheus metrics
       tags:
       - metrics
+  /status/health:
+    get:
+      description: Will just tell you if the app is healthy
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Tell the health status
+      tags:
+      - status
+  /status/up:
+    get:
+      description: Will just tell you if the app is upp and running
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Tell Up status
+      tags:
+      - status
 produces:
 - application/json
 swagger: "2.0"

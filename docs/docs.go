@@ -252,6 +252,40 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/status/health": {
+            "get": {
+                "description": "Will just tell you if the app is healthy",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "status"
+                ],
+                "summary": "Tell the health status",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/status/up": {
+            "get": {
+                "description": "Will just tell you if the app is upp and running",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "status"
+                ],
+                "summary": "Tell Up status",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
         }
     },
     "definitions": {

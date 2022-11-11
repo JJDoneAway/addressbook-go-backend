@@ -34,6 +34,8 @@ func main() {
 
 	controllers.AddAddressRouts(router)
 
+	controllers.AddStatus(router)
+
 	log.Fatal(router.Run(":8080"))
 
 }
