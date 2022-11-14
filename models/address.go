@@ -2,9 +2,12 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"log"
+	"os"
 	"time"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -37,8 +40,6 @@ type Entity interface {
 	DeleteAllUsers() error
 }
 
-const dsn = "host=localhost user=postgres password=1234 dbname=postgres port=5432 sslmode=disable"
-
 var (
 
 	//error to be thrown in case of inconsistencies
@@ -51,10 +52,21 @@ var (
 
 func init() {
 
+	if ok := godotenv.Load(); ok != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		os.Getenv("ODJ_DEP_ALERTA_DB_HOST"),
+		os.Getenv("ODJ_DEP_ALERTA_DB_USER"),
+		os.Getenv("ODJ_DEP_ALERTA_DB_PASSWORD"),
+		os.Getenv("ODJ_DEP_ALERTA_DB_DATABASE"),
+		os.Getenv("ODJ_DEP_ALERTA_DB_PORT"))
+
 	var err error
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: logger.Default.LogMode(logger.Info)})
 	if err != nil {
-		panic("Not able to init DB connection")
+		panic("Not able to init DB connection: " + dsn)
 	}
 
 	db.Debug().Migrator().DropTable(&Address{})
