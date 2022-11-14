@@ -30,6 +30,7 @@
                     "addresses"
                 ],
                 "summary": "List all addresses",
+                "operationId": "getAllAddresses",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -54,6 +55,7 @@
                     "addresses"
                 ],
                 "summary": "Add a new addresses",
+                "operationId": "addAddress",
                 "parameters": [
                     {
                         "description": "The new addresses without ID",
@@ -86,6 +88,7 @@
                     "addresses"
                 ],
                 "summary": "Delete all addresses",
+                "operationId": "deleteAllAddresses",
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -101,6 +104,7 @@
                     "addresses"
                 ],
                 "summary": "Reset address book",
+                "operationId": "resetDB",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -121,6 +125,7 @@
                     "addresses"
                 ],
                 "summary": "Get one address",
+                "operationId": "getOneAddress",
                 "parameters": [
                     {
                         "type": "integer",
@@ -157,6 +162,7 @@
                     "addresses"
                 ],
                 "summary": "Update an existing address",
+                "operationId": "updateOneAddress",
                 "parameters": [
                     {
                         "type": "integer",
@@ -199,6 +205,7 @@
                     "addresses"
                 ],
                 "summary": "Delete one address",
+                "operationId": "deleteOneAddress",
                 "parameters": [
                     {
                         "type": "integer",
@@ -254,6 +261,7 @@
                     "status"
                 ],
                 "summary": "Tell the health status",
+                "operationId": "healthStatus",
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -271,6 +279,7 @@
                     "status"
                 ],
                 "summary": "Tell Up status",
+                "operationId": "upStatus",
                 "responses": {
                     "200": {
                         "description": "OK"

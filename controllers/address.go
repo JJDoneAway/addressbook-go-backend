@@ -22,6 +22,7 @@ func AddAddressRouts(router *gin.Engine) {
 
 // @Summary      List all addresses
 // @Description  Provide a list of all currently known addresses
+// @ID           getAllAddresses
 // @Tags         addresses
 // @Produce      json
 // @Success      200  {array}  models.Address
@@ -32,6 +33,7 @@ func doGetAll(c *gin.Context) {
 
 // @Summary      Add a new addresses
 // @Description  Will add a new addresses entity to the storage. The new created addresses will be returned. Don't add the Id to the addresses parameter
+// @ID           addAddress
 // @Tags         addresses
 // @Accept       json
 // @Produce      json
@@ -58,6 +60,7 @@ func doPOST(c *gin.Context) {
 
 // @Summary      Delete all addresses
 // @Description  Will delete all addresses. an empty list will be returned
+// @ID           deleteAllAddresses
 // @Tags         addresses
 // @Produce      json
 // @Success      200
@@ -72,6 +75,7 @@ func doDeleteAll(c *gin.Context) {
 
 // @Summary      Get one address
 // @Description  Get a address with the provided ID
+// @ID           getOneAddress
 // @Tags         addresses
 // @Produce      json
 // @Param        id path integer true "ID of the user"
@@ -90,6 +94,7 @@ func doGet(c *gin.Context) {
 
 // @Summary      Update an existing address
 // @Description  Will update an existing address which is identified via its ID
+// @ID           updateOneAddress
 // @Tags         addresses
 // @Accept       json
 // @Produce      json
@@ -122,6 +127,7 @@ func doPut(c *gin.Context) {
 
 // @Summary      Delete one address
 // @Description  Delete a address with the provided ID
+// @ID           deleteOneAddress
 // @Tags         addresses
 // @Produce      json
 // @Param        id path integer true "ID of the address"
@@ -141,6 +147,7 @@ func doDelete(c *gin.Context) {
 
 // @Summary      Reset address book
 // @Description  Will delete all addresses from the DB and reset the db to the default dummies
+// @ID           resetDB
 // @Tags         addresses
 // @Produce      json
 // @Success      200  {string}  string

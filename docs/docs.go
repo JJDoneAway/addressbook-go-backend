@@ -39,6 +39,7 @@ const docTemplate = `{
                     "addresses"
                 ],
                 "summary": "List all addresses",
+                "operationId": "getAllAddresses",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -63,6 +64,7 @@ const docTemplate = `{
                     "addresses"
                 ],
                 "summary": "Add a new addresses",
+                "operationId": "addAddress",
                 "parameters": [
                     {
                         "description": "The new addresses without ID",
@@ -95,6 +97,7 @@ const docTemplate = `{
                     "addresses"
                 ],
                 "summary": "Delete all addresses",
+                "operationId": "deleteAllAddresses",
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -110,6 +113,7 @@ const docTemplate = `{
                     "addresses"
                 ],
                 "summary": "Reset address book",
+                "operationId": "resetDB",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -130,6 +134,7 @@ const docTemplate = `{
                     "addresses"
                 ],
                 "summary": "Get one address",
+                "operationId": "getOneAddress",
                 "parameters": [
                     {
                         "type": "integer",
@@ -166,6 +171,7 @@ const docTemplate = `{
                     "addresses"
                 ],
                 "summary": "Update an existing address",
+                "operationId": "updateOneAddress",
                 "parameters": [
                     {
                         "type": "integer",
@@ -208,6 +214,7 @@ const docTemplate = `{
                     "addresses"
                 ],
                 "summary": "Delete one address",
+                "operationId": "deleteOneAddress",
                 "parameters": [
                     {
                         "type": "integer",
@@ -263,6 +270,7 @@ const docTemplate = `{
                     "status"
                 ],
                 "summary": "Tell the health status",
+                "operationId": "healthStatus",
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -280,6 +288,7 @@ const docTemplate = `{
                     "status"
                 ],
                 "summary": "Tell Up status",
+                "operationId": "upStatus",
                 "responses": {
                     "200": {
                         "description": "OK"

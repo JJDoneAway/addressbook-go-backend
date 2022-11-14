@@ -33,6 +33,7 @@ paths:
   /addresses:
     delete:
       description: Will delete all addresses. an empty list will be returned
+      operationId: deleteAllAddresses
       produces:
       - application/json
       responses:
@@ -43,6 +44,7 @@ paths:
       - addresses
     get:
       description: Provide a list of all currently known addresses
+      operationId: getAllAddresses
       produces:
       - application/json
       responses:
@@ -58,6 +60,7 @@ paths:
     patch:
       description: Will delete all addresses from the DB and reset the db to the default
         dummies
+      operationId: resetDB
       produces:
       - application/json
       responses:
@@ -73,6 +76,7 @@ paths:
       - application/json
       description: Will add a new addresses entity to the storage. The new created
         addresses will be returned. Don't add the Id to the addresses parameter
+      operationId: addAddress
       parameters:
       - description: The new addresses without ID
         in: body
@@ -95,6 +99,7 @@ paths:
   /addresses/{id}:
     delete:
       description: Delete a address with the provided ID
+      operationId: deleteOneAddress
       parameters:
       - description: ID of the address
         in: path
@@ -117,6 +122,7 @@ paths:
       - addresses
     get:
       description: Get a address with the provided ID
+      operationId: getOneAddress
       parameters:
       - description: ID of the user
         in: path
@@ -141,6 +147,7 @@ paths:
       consumes:
       - application/json
       description: Will update an existing address which is identified via its ID
+      operationId: updateOneAddress
       parameters:
       - description: ID of the address
         in: path
@@ -183,6 +190,7 @@ paths:
   /status/health:
     get:
       description: Will just tell you if the app is healthy
+      operationId: healthStatus
       produces:
       - application/json
       responses:
@@ -194,6 +202,7 @@ paths:
   /status/up:
     get:
       description: Will just tell you if the app is upp and running
+      operationId: upStatus
       produces:
       - application/json
       responses:

@@ -9,6 +9,20 @@
 > This branch is based on the gin branch. So it is already using GIN, Swagger and Prometheus
 
 
+# SWAGGER
+Follow the instructions of https://github.com/swaggo/gin-swagger
+
+Open http:localhost:8080
+
+It is so very inconvenient if you did it once in Spring :( 
+
+# Prometheus
+Using GIN module
+
+https://github.com/penglongli/gin-metrics
+
+is quite comfortable 
+
 ## GORM
 Follow the instructions of https://gorm.io/
 

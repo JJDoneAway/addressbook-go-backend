@@ -13,6 +13,7 @@ func AddStatus(router *gin.Engine) {
 
 // @Summary      Tell Up status
 // @Description  Will just tell you if the app is upp and running
+// @ID           upStatus
 // @Tags         status
 // @Produce      json
 // @Success      200
@@ -23,6 +24,7 @@ func doUp(c *gin.Context) {
 
 // @Summary      Tell the health status
 // @Description  Will just tell you if the app is healthy
+// @ID           healthStatus
 // @Tags         status
 // @Produce      json
 // @Success      200
