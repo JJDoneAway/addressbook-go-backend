@@ -1,0 +1,24 @@
+groups:
+- name: technical
+  rules:
+  - alert: InstanceDown
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: "critical"
+      kind: "technical"
+    annotations:
+      summary: "Endpoint {{ $labels.job }} down"
+      description: "job {{ $labels.job }} has been down for more than 1 minutes."
+
+- name: business
+  rules:
+  - alert: ToManyRequests
+    expr: rate(gin_request_duration_count{uri=~"/addresses.*"} [1m]) > 250
+    for: 1m
+    labels:
+      severity: "warning"
+      kind: "business"
+    annotations:
+      summary: "To many parallel requests on {{$labels.uri}}"
+      description: "Currently we have many concurrent users which can slow down the performance on {{$labels.job}}"
